@@ -42,8 +42,8 @@ public class TodoIntegrationTest {
     void should_return_all_todos_when_get_todos() throws Exception {
         //given
         List<Todo> todos = List.of(
-                new Todo(null, "todo1", List.of("tag1")),
-                new Todo(null, "todo2", List.of("tag1")));
+                new Todo(null, "todo1", List.of("tag1"), true),
+                new Todo(null, "todo2", List.of("tag1"), false));
         todoRepository.saveAll(todos);
         //when
         //then
@@ -51,16 +51,18 @@ public class TodoIntegrationTest {
                 andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").isString())
                 .andExpect(jsonPath("$[0].content").value("todo1"))
+                .andExpect(jsonPath("$[0].isDone").value(true))
                 .andExpect(jsonPath("$[0].tags[0]").value("tag1"))
                 .andExpect(jsonPath("$[1].id").isString())
                 .andExpect(jsonPath("$[1].content").value("todo2"))
+                .andExpect(jsonPath("$[1].isDone").value(false))
                 .andExpect(jsonPath("$[1].tags[0]").value("tag1"));
     }
 
     @Test
     void should_delete_todo_when_delete_todo_given_a_todo() throws Exception {
         //given
-        Todo todo = todoRepository.save(new Todo(null, "todo1", List.of("tag1")));
+        Todo todo = todoRepository.save(new Todo(null, "todo1", List.of("tag1"), true));
         //when
 
         //then
@@ -72,9 +74,9 @@ public class TodoIntegrationTest {
     @Test
     void should_return_updated_todd_when_update_todo_given_a_todo() throws Exception {
         //given
-        Todo todo = new Todo(null, "todo1", List.of("tag1"));
+        Todo todo = new Todo(null, "todo1", List.of("tag1"), true);
         todo = todoRepository.save(todo);
-        String newTodoAsJson = "{\"content\":\"test\",\"tags\":[\"newTag\",\"newTag2\"]}";
+        String newTodoAsJson = "{\"content\":\"test\",\"tags\":[\"newTag\",\"newTag2\"],\"isDone\":\"false\"}";
         //when
         //then
         mockMvc.perform(put("/todos/" + todo.getId())
@@ -84,6 +86,7 @@ public class TodoIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isString())
                 .andExpect(jsonPath("$.content").value("test"))
+                .andExpect(jsonPath("$.isDone").value(false))
                 .andExpect(jsonPath("$.tags[0]").value("newTag"))
                 .andExpect(jsonPath("$.tags[1]").value("newTag2"));
 

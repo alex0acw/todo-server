@@ -36,6 +36,7 @@ public class TodoService {
         Todo existing = getById(id);
         if (todo.getContent() != null) existing.setContent(todo.getContent());
         if (todo.getTags() != null) existing.setTags(todo.getTags());
-        return todoRepository.save(todo);
+        if (todo.getIsDone() != null) existing.setIsDone(todo.getIsDone());
+        return todoRepository.save(existing);
     }
 }

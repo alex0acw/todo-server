@@ -13,14 +13,16 @@ public class Todo {
     private String id;
     private String content;
     private List<String> tags;
+    private Boolean isDone;
 
     public Todo() {
     }
 
-    public Todo(String id, String content, List<String> tags) {
+    public Todo(String id, String content, List<String> tags, Boolean isDone) {
         this.id = id;
         this.content = content;
         this.tags = tags;
+        this.isDone = isDone;
     }
 
     public String getId() {
@@ -45,5 +47,13 @@ public class Todo {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public void setIsDone(Boolean done) {
+        isDone = done;
+    }
+
+    public Boolean getIsDone() {
+        return isDone;
     }
 }
