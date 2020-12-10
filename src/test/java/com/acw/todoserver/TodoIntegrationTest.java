@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -53,6 +54,18 @@ public class TodoIntegrationTest {
                 .andExpect(jsonPath("$[1].id").isString())
                 .andExpect(jsonPath("$[1].content").value("todo2"))
                 .andExpect(jsonPath("$[1].tags[0]").value("tag1"));
+    }
+
+    @Test
+    void should_delete_todo_when_delete_todo_given_a_todo() throws Exception {
+        //given
+        Todo todo = todoRepository.save(new Todo(null, "todo1", List.of("tag1")));
+        //when
+
+        //then
+        mockMvc.perform(delete("/todos/" + todo.getId()))
+                .andExpect(status().isOk());
+        assertFalse(todoRepository.findById(todo.getId()).isPresent());
     }
 
 }
