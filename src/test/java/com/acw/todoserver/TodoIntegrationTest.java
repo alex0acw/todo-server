@@ -85,7 +85,7 @@ public class TodoIntegrationTest {
                 .andExpect(jsonPath("$.id").isString())
                 .andExpect(jsonPath("$.content").value("test"))
                 .andExpect(jsonPath("$.tags[0]").value("newTag"))
-                .andExpect(jsonPath("$.tags[0]").value("newTag2"));
+                .andExpect(jsonPath("$.tags[1]").value("newTag2"));
 
     }
 
