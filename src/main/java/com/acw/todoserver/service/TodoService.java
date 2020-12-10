@@ -2,9 +2,11 @@ package com.acw.todoserver.service;
 
 import com.acw.todoserver.entities.Todo;
 import com.acw.todoserver.repositories.TodoRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class TodoService {
     private final TodoRepository todoRepository;
 
@@ -13,6 +15,6 @@ public class TodoService {
     }
 
     public List<Todo> getAll() {
-        return null;
+        return todoRepository.findAll();
     }
 }

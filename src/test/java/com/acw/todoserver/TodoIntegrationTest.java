@@ -45,7 +45,7 @@ public class TodoIntegrationTest {
         todoRepository.saveAll(todos);
         //when
         //then
-        mockMvc.perform(get("/companies")).
+        mockMvc.perform(get("/todos")).
                 andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").isString())
                 .andExpect(jsonPath("$[0].content").value("todo1"))
