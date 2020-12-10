@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -66,6 +67,26 @@ public class TodoIntegrationTest {
         mockMvc.perform(delete("/todos/" + todo.getId()))
                 .andExpect(status().isOk());
         assertFalse(todoRepository.findById(todo.getId()).isPresent());
+    }
+
+    @Test
+    void should_return_updated_todd_when_update_todo_given_a_todo() throws Exception {
+        //given
+        Todo todo = new Todo(null, "todo1", List.of("tag1"));
+        todo = todoRepository.save(todo);
+        String newTodoAsJson = "{\"content\":\"test\",\"tags\":[\"newTag\",\"newTag2\"]}";
+        //when
+        //then
+        mockMvc.perform(put("/todos/" + todo.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(newTodoAsJson)
+        )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").isString())
+                .andExpect(jsonPath("$.content").value("test"))
+                .andExpect(jsonPath("$.tags[0]").value("newTag"))
+                .andExpect(jsonPath("$.tags[0]").value("newTag2"));
+
     }
 
 }
