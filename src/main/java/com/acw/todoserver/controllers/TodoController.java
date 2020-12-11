@@ -1,6 +1,7 @@
 package com.acw.todoserver.controllers;
 
 
+import com.acw.todoserver.entities.Tag;
 import com.acw.todoserver.entities.Todo;
 import com.acw.todoserver.service.TodoService;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,13 @@ public class TodoController {
     }
 
     @PutMapping("/{id}")
-    public Todo updateById(@PathVariable String id,@RequestBody Todo todo) {
-        return todoService.updateById(id,todo);
+    public Todo updateById(@PathVariable String id, @RequestBody Todo todo) {
+        return todoService.updateById(id, todo);
+    }
+
+
+    @PostMapping
+    public Todo createTag(@RequestBody Todo todo) {
+        return todoService.add(todo);
     }
 }

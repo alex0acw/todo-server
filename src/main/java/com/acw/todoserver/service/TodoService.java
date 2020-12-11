@@ -39,4 +39,8 @@ public class TodoService {
         if (todo.getIsDone() != null) existing.setIsDone(todo.getIsDone());
         return todoRepository.save(existing);
     }
+
+    public Todo add(Todo todo) {
+        return todoRepository.save(todo);
+    }
 }
