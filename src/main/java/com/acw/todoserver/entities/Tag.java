@@ -1,11 +1,14 @@
 package com.acw.todoserver.entities;
 
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.FieldType;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 public class Tag {
     @MongoId(value = FieldType.OBJECT_ID)
     private String id;
+
+    @Indexed(unique = true)
     private String name;
     private String color;
     public Tag(){}

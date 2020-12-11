@@ -1,7 +1,9 @@
 package com.acw.todoserver.service;
 
 import com.acw.todoserver.entities.Tag;
+import com.acw.todoserver.exceptions.DuplicateTagException;
 import com.acw.todoserver.repositories.TagRepository;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,7 +29,11 @@ public class TagService {
         return tagRepository.findAll();
     }
 
-    public Tag addTag(Tag tag) {
-        return tagRepository.save(tag);
+    public Tag addTag(Tag tag) throws DuplicateTagException {
+        try {
+            return tagRepository.save(tag);
+        } catch (DuplicateKeyException exception) {
+            throw new DuplicateTagException();
+        }
     }
 }

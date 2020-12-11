@@ -3,6 +3,7 @@ package com.acw.todoserver.controllers;
 
 import com.acw.todoserver.entities.Tag;
 import com.acw.todoserver.entities.Todo;
+import com.acw.todoserver.exceptions.DuplicateTagException;
 import com.acw.todoserver.service.TagService;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +28,7 @@ public class TagController {
     }
 
     @PostMapping
-    public Tag addTag(@RequestBody Tag tag){
+    public Tag addTag(@RequestBody Tag tag) throws DuplicateTagException {
         return  tagService.addTag(tag);
     }
 
