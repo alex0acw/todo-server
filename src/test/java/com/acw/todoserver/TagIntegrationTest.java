@@ -71,9 +71,8 @@ public class TagIntegrationTest {
         )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isString())
-                .andExpect(jsonPath("$[0].id").isString())
-                .andExpect(jsonPath("$[0].name").value("test"))
-                .andExpect(jsonPath("$[0].color").value("green"));
+                .andExpect(jsonPath("$.name").value("test"))
+                .andExpect(jsonPath("$.color").value("green"));
 
     }
 
