@@ -22,7 +22,7 @@ public class TagService {
             return tag.get();
         else throw new NoSuchElementException();
     }
-    List<Tag> getAll(){
+    public List<Tag> getAll(){
         return tagRepository.findAll();
     }
 }
