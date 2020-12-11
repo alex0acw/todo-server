@@ -58,37 +58,23 @@ public class TagIntegrationTest {
                 .andExpect(jsonPath("$[1].color").value("black"));
     }
 
-//    @Test
-//    void should_delete_todo_when_delete_todo_given_a_todo() throws Exception {
-//        //given
-//        Todo todo = todoRepository.save(new Todo(null, "todo1", List.of("tag1"), true));
-//        //when
-//
-//        //then
-//        mockMvc.perform(delete("/todos/" + todo.getId()))
-//                .andExpect(status().isOk());
-//        assertFalse(todoRepository.findById(todo.getId()).isPresent());
-//    }
-//
-//    @Test
-//    void should_return_updated_todd_when_update_todo_given_a_todo() throws Exception {
-//        //given
-//        Todo todo = new Todo(null, "todo1", List.of("tag1"), true);
-//        todo = todoRepository.save(todo);
-//        String newTodoAsJson = "{\"content\":\"test\",\"tags\":[\"newTag\",\"newTag2\"],\"isDone\":\"false\"}";
-//        //when
-//        //then
-//        mockMvc.perform(put("/todos/" + todo.getId())
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(newTodoAsJson)
-//        )
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.id").isString())
-//                .andExpect(jsonPath("$.content").value("test"))
-//                .andExpect(jsonPath("$.isDone").value(false))
-//                .andExpect(jsonPath("$.tags[0]").value("newTag"))
-//                .andExpect(jsonPath("$.tags[1]").value("newTag2"));
-//
-//    }
+
+    @Test
+    void should_return_created_tag_when_create_tag_given_a_tag() throws Exception {
+        //given
+        String newTodoAsJson = "{\"name\":\"test\",\"color\":\"green\"}";
+        //when
+        //then
+        mockMvc.perform(post("/tags")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(newTodoAsJson)
+        )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").isString())
+                .andExpect(jsonPath("$[0].id").isString())
+                .andExpect(jsonPath("$[0].name").value("test"))
+                .andExpect(jsonPath("$[0].color").value("green"));
+
+    }
 
 }
