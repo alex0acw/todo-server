@@ -92,4 +92,24 @@ public class TodoIntegrationTest {
 
     }
 
+
+    @Test
+    void should_return_created_todo_when_create_todo_given_a_todo() throws Exception {
+        //given
+        String newTodoAsJson = "{\"content\":\"test\",\"tags\":[\"newTag\",\"newTag2\"],\"isDone\":\"false\"}";
+        //when
+        //then
+        mockMvc.perform(post("/todos")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(newTodoAsJson)
+        )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").isString())
+                .andExpect(jsonPath("$.content").value("test"))
+                .andExpect(jsonPath("$.isDone").value(false))
+                .andExpect(jsonPath("$.tags[0]").value("newTag"))
+                .andExpect(jsonPath("$.tags[1]").value("newTag2"));
+
+    }
+
 }
