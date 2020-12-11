@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/tags")
 @ResponseBody
+@CrossOrigin
 public class TagController {
 
 

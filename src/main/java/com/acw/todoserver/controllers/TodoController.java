@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/todos")
 @ResponseBody
+@CrossOrigin
 public class TodoController {
 
 
